@@ -111,6 +111,6 @@ Mpesa-Practise1.0/
 
 
 
-This project is provided for learning/demo purposes and does not offer any warranty or guarantee.
+This project is provided for learning/demo purposes.
 
 ---
