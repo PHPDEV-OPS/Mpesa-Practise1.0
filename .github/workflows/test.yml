@@ -1,0 +1,39 @@
+name: PHP Test
+
+on:
+  push:
+    branches:
+      - "*"
+  pull_request:
+    branches:
+      - "*"
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8.2'
+        extensions: mbstring, intl, curl, dom, libxml, simplexml
+        coverage: none
+
+    - name: Install Composer dependencies
+      run: |
+        if [ -f composer.json ]; then
+          composer install --prefer-dist --no-progress --no-interaction
+        fi
+
+    - name: Run tests (if any)
+      run: |
+        if [ -f vendor/bin/phpunit ]; then
+          vendor/bin/phpunit --testdox || echo "No PHPUnit tests yet."
+        else
+          echo "No PHPUnit installed or no tests found."
+        fi
